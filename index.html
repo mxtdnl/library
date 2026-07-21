@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Library — mxtdnl</title>
+<meta name="description" content="A catalogue of published interactive simulations and exercises by mxtdnl — decision-making, forecasting, habit and judgement.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Sage primary ramp */
+    --sage-50:#f2f5f0; --sage-100:#e6ebe2; --sage-200:#cdd6c6; --sage-300:#b0bfa6;
+    --sage-400:#94a687; --sage-500:#7C9070; --sage-600:#647758; --sage-700:#4d5d44;
+    --sage-800:#384432; --sage-900:#232c1f;
+    /* Purple accent ramp */
+    --purple-300:#b7a3d6; --purple-400:#9a80c2; --purple-500:#7B5EA7; --purple-600:#634a89;
+    /* Semantics, tuned to sage */
+    --clay:#b07a3a; --brick:#a24b3c;
+
+    /* Light mode surfaces — sage-tinted neutrals, not pure grey */
+    --bg:#f6f8f3;
+    --surface:#fdfdfb;
+    --ink:#1f2a1c;
+    --ink-soft:#586152;
+    --ink-faint:#8b9483;
+    --line:#dbe0d3;
+    --line-strong:#c4cdb7;
+    --accent:var(--purple-500);
+    --accent-strong:var(--purple-600);
+    --mark:var(--sage-600);
+    --hover:var(--sage-50);
+    --focus:var(--purple-500);
+
+    --measure:64ch;
+    --radius:2px;
+    --step:clamp(0.9rem, 0.83rem + 0.35vw, 1.05rem);
+  }
+  :root[data-theme="dark"] {
+    /* Re-derived, not inverted: desaturated sage surfaces, lifted purple accent */
+    --bg:#161a12;
+    --surface:#1c2117;
+    --ink:#e9ede2;
+    --ink-soft:#a8b39d;
+    --ink-faint:#78826d;
+    --line:#2f3728;
+    --line-strong:#404a36;
+    --accent:var(--purple-300);
+    --accent-strong:#c9b6e6;
+    --mark:var(--sage-300);
+    --hover:#20261a;
+    --focus:var(--purple-300);
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Newsreader", Georgia, "Times New Roman", serif;
+    font-size:var(--step); line-height:1.6;
+    font-optical-sizing:auto;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{ background:var(--sage-200); color:var(--sage-900); }
+  :root[data-theme="dark"] ::selection{ background:var(--sage-700); color:var(--sage-50); }
+
+  a{ color:var(--accent-strong); text-decoration-thickness:1px; text-underline-offset:2px; }
+  a:hover{ color:var(--accent); }
+
+  .skip{
+    position:absolute; left:-999px; top:0; background:var(--surface); color:var(--ink);
+    padding:.6rem 1rem; border:1px solid var(--line-strong); z-index:10;
+  }
+  .skip:focus{ left:1rem; top:1rem; }
+
+  .wrap{ width:min(100% - 2.5rem, 68rem); margin-inline:auto; }
+
+  /* ── Masthead ─────────────────────────────────────── */
+  header.masthead{ padding-top:clamp(2rem,5vw,4rem); }
+  .topline{
+    display:flex; justify-content:space-between; align-items:baseline; gap:1rem;
+    font-family:ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--ink-faint); padding-bottom:1.1rem;
+    border-bottom:1px solid var(--line);
+  }
+  .topline .idx{ color:var(--mark); }
+
+  .title-block{ padding:clamp(1.6rem,4vw,3rem) 0 1.2rem; }
+  h1.wordmark{
+    font-family:"Fraunces", Georgia, serif;
+    font-weight:900; font-optical-sizing:auto;
+    font-size:clamp(2.6rem, 1.8rem + 4vw, 5rem);
+    line-height:.98; letter-spacing:-0.02em; margin:0;
+  }
+  h1.wordmark .the{
+    display:block; font-size:clamp(.95rem,.8rem + .5vw,1.15rem); font-weight:500;
+    letter-spacing:.34em; text-transform:uppercase; color:var(--mark);
+    font-family:ui-monospace, monospace; margin-bottom:.55rem;
+  }
+  .lede{
+    max-width:var(--measure); margin:1.4rem 0 0; color:var(--ink-soft);
+    font-size:clamp(1.05rem,1rem + .35vw,1.2rem);
+  }
+  .lede em{ color:var(--ink); font-style:italic; }
+
+  /* ── Toolbar ──────────────────────────────────────── */
+  .toolbar{
+    display:flex; flex-wrap:wrap; gap:1rem 1.4rem; align-items:flex-end;
+    padding:2.2rem 0 1rem; margin-top:1.6rem;
+    border-top:1px solid var(--line);
+  }
+  .search{ flex:1 1 20rem; display:flex; flex-direction:column; gap:.4rem; }
+  .search label{
+    font-family:ui-monospace, monospace; font-size:.68rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--ink-faint);
+  }
+  .search input{
+    font-family:"Newsreader", serif; font-size:1.1rem; color:var(--ink);
+    background:transparent; border:none; border-bottom:1.5px solid var(--line-strong);
+    padding:.45rem .1rem; width:100%;
+  }
+  .search input::placeholder{ color:var(--ink-faint); font-style:italic; }
+  .search input:focus{ outline:none; border-bottom-color:var(--accent); }
+
+  .contents{ display:flex; flex-wrap:wrap; gap:.4rem .5rem; align-items:center; }
+  .contents .lbl{
+    font-family:ui-monospace, monospace; font-size:.68rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--ink-faint); margin-right:.2rem;
+  }
+  .jump{
+    font-family:ui-monospace, monospace; font-size:.74rem; letter-spacing:.06em;
+    color:var(--mark); text-decoration:none; padding:.2rem .1rem;
+    border-bottom:1px dotted transparent;
+  }
+  .jump:hover, .jump:focus-visible{ color:var(--accent); border-bottom-color:var(--accent); outline:none; }
+
+  .count{
+    font-family:ui-monospace, monospace; font-size:.72rem; letter-spacing:.1em;
+    color:var(--ink-faint); white-space:nowrap;
+  }
+
+  /* ── Theme toggle ─────────────────────────────────── */
+  .toggle{
+    display:inline-flex; align-items:center; gap:.5rem; cursor:pointer;
+    background:transparent; color:var(--ink-soft);
+    border:1px solid var(--line-strong); border-radius:999px;
+    padding:.35rem .7rem; font-family:ui-monospace, monospace;
+    font-size:.68rem; letter-spacing:.12em; text-transform:uppercase;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .toggle:hover{ color:var(--ink); border-color:var(--accent); }
+  .toggle:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+  .toggle svg{ width:15px; height:15px; }
+  .toggle .moon{ display:none; }
+  :root[data-theme="dark"] .toggle .sun{ display:none; }
+  :root[data-theme="dark"] .toggle .moon{ display:inline; }
+
+  /* ── Collections ──────────────────────────────────── */
+  main{ padding-top:1.4rem; }
+  .collection{ margin-top:3.2rem; scroll-margin-top:1.5rem; }
+  .col-head{
+    display:flex; align-items:baseline; gap:.9rem; flex-wrap:wrap;
+    padding-bottom:.55rem; border-bottom:2px solid var(--ink);
+  }
+  .col-code{
+    font-family:ui-monospace, monospace; font-weight:500;
+    font-size:.8rem; letter-spacing:.12em; color:var(--surface);
+    background:var(--mark); padding:.2rem .5rem; border-radius:var(--radius);
+  }
+  .col-name{
+    font-family:"Fraunces", serif; font-weight:600; font-size:clamp(1.35rem,1.1rem + 1vw,1.9rem);
+    letter-spacing:-0.01em; margin:0; line-height:1.1;
+  }
+  .col-blurb{ color:var(--ink-soft); font-style:italic; margin:.5rem 0 0; max-width:var(--measure); }
+
+  ol.entries{ list-style:none; margin:0; padding:0; }
+  .entry{ border-bottom:1px solid var(--line); }
+  .entry-link{
+    display:grid; grid-template-columns:5.5rem 1fr auto; gap:0 1.4rem; align-items:start;
+    padding:1.3rem .4rem 1.3rem .2rem; text-decoration:none; color:inherit;
+    transition:background .18s ease;
+  }
+  .entry-link:hover, .entry-link:focus-visible{ background:var(--hover); outline:none; }
+  .entry-link:focus-visible{ box-shadow:inset 3px 0 0 var(--focus); }
+
+  .mark{
+    font-family:ui-monospace, monospace; font-size:.82rem; letter-spacing:.04em;
+    color:var(--mark); padding-top:.35rem; line-height:1.3;
+  }
+  .mark .no{ display:block; color:var(--ink-faint); font-size:.7rem; margin-top:.15rem; }
+
+  .body h3{
+    font-family:"Fraunces", serif; font-weight:500; font-optical-sizing:auto;
+    font-size:clamp(1.2rem,1.05rem + .7vw,1.55rem); line-height:1.15;
+    letter-spacing:-0.01em; margin:0; color:var(--ink);
+    display:inline; background-image:linear-gradient(var(--accent),var(--accent));
+    background-size:0% 1.5px; background-position:0 1.15em; background-repeat:no-repeat;
+    transition:background-size .25s ease;
+  }
+  .entry-link:hover h3, .entry-link:focus-visible h3{ background-size:100% 1.5px; }
+  .arrow{ color:var(--accent); font-family:ui-monospace,monospace; margin-left:.4rem; opacity:0; transition:opacity .18s ease; }
+  .entry-link:hover .arrow, .entry-link:focus-visible .arrow{ opacity:1; }
+  .body p{ margin:.5rem 0 0; color:var(--ink-soft); max-width:52ch; font-size:1.02rem; }
+
+  .meta{ text-align:right; padding-top:.4rem; white-space:nowrap; }
+  .meta .date{
+    font-family:ui-monospace, monospace; font-size:.72rem; letter-spacing:.06em;
+    color:var(--ink-faint); display:block;
+  }
+  .source{
+    display:inline-block; margin-top:.5rem; font-family:ui-monospace,monospace;
+    font-size:.68rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ink-faint); text-decoration:none; border-bottom:1px solid transparent;
+  }
+  .source:hover, .source:focus-visible{ color:var(--accent); border-bottom-color:var(--accent); outline:none; }
+
+  .empty{ color:var(--ink-soft); font-style:italic; padding:2rem .2rem; }
+
+  /* ── Footer ───────────────────────────────────────── */
+  footer{
+    margin-top:4rem; padding:2rem 0 3.5rem; border-top:2px solid var(--ink);
+    display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem;
+    font-family:ui-monospace, monospace; font-size:.74rem; letter-spacing:.06em;
+    color:var(--ink-faint);
+  }
+  footer a{ color:var(--mark); text-decoration:none; border-bottom:1px solid transparent; }
+  footer a:hover{ color:var(--accent); border-bottom-color:var(--accent); }
+
+  /* ── Responsive ───────────────────────────────────── */
+  @media (max-width:640px){
+    .entry-link{ grid-template-columns:1fr; gap:.35rem; padding:1.15rem .2rem; }
+    .mark{ padding-top:0; display:flex; gap:.6rem; align-items:baseline; }
+    .mark .no{ display:inline; margin-top:0; }
+    .meta{ text-align:left; padding-top:.3rem; }
+    .body p{ max-width:none; }
+    .arrow{ opacity:1; }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{ transition:none !important; }
+    .body h3{ background-size:0 0; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#catalogue">Skip to the catalogue</a>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="topline">
+      <span class="idx">Accession&nbsp;· mxtdnl.github.io</span>
+      <button class="toggle" id="themeToggle" type="button" aria-pressed="false">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.2 5.2l1.7 1.7M17.1 17.1l1.7 1.7M18.8 5.2l-1.7 1.7M6.9 17.1l-1.7 1.7"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a6.5 6.5 0 1 0 10.5 10.5z"/></svg>
+        <span id="themeLabel">Light</span>
+      </button>
+    </div>
+
+    <div class="title-block">
+      <h1 class="wordmark"><span class="the">The&nbsp;Library&nbsp;of</span>mxtdnl</h1>
+      <p class="lede">A working catalogue of published, self-contained interactive
+        simulations and exercises — on <em>decision-making under pressure</em>,
+        <em>forecasting and estimation</em>, <em>the mechanics of habit</em>, and
+        <em>judgement</em>. Each entry is a live GitHub&nbsp;Pages project; follow a
+        shelf-mark to open it.</p>
+    </div>
+
+    <div class="toolbar">
+      <div class="search">
+        <label for="q">Search the catalogue</label>
+        <input id="q" type="search" autocomplete="off" spellcheck="false"
+               placeholder="Title, theme, or keyword…" aria-describedby="resultCount">
+      </div>
+      <nav class="contents" id="contents" aria-label="Collections"></nav>
+      <span class="count" id="resultCount" role="status" aria-live="polite"></span>
+    </div>
+  </header>
+
+  <main id="catalogue">
+    <div id="stacks"></div>
+    <p class="empty" id="noResults" hidden>No entries match that search. Try a broader term, or clear the field.</p>
+  </main>
+
+  <footer>
+    <span id="foot-count">&nbsp;</span>
+    <span>
+      <a href="https://github.com/mxtdnl" rel="me">github.com/mxtdnl</a>
+      &nbsp;·&nbsp; Catalogue maintained by hand in
+      <a href="https://github.com/mxtdnl/library">mxtdnl/library</a>
+    </span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var OWNER = "mxtdnl";
+  var PAGES = "https://" + OWNER + ".github.io";
+  var REPO  = "https://github.com/" + OWNER;
+
+  var stacks = document.getElementById("stacks");
+  var contentsNav = document.getElementById("contents");
+  var resultCount = document.getElementById("resultCount");
+  var footCount = document.getElementById("foot-count");
+  var noResults = document.getElementById("noResults");
+  var q = document.getElementById("q");
+
+  var DATA = null;
+
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];
+  }); }
+
+  function fmtDate(iso){
+    var d = new Date(iso + "T00:00:00Z");
+    if (isNaN(d)) return iso;
+    return d.toLocaleDateString("en-GB",{year:"numeric",month:"short",timeZone:"UTC"}).toUpperCase();
+  }
+
+  function urlFor(p){ return p.url || (PAGES + "/" + p.slug + "/"); }
+  function repoFor(p){ return p.repo || (REPO + "/" + p.slug); }
+
+  function build(data){
+    DATA = data;
+    var cols = data.collections;
+    var projects = data.projects.slice();
+
+    // group + order within collection (newest first)
+    var byCode = {};
+    cols.forEach(function(c){ byCode[c.code] = []; });
+    projects.forEach(function(p){ (byCode[p.collection] || (byCode[p.collection]=[])).push(p); });
+    Object.keys(byCode).forEach(function(code){
+      byCode[code].sort(function(a,b){ return (b.updated||"").localeCompare(a.updated||""); });
+    });
+
+    // contents nav
+    contentsNav.innerHTML = '<span class="lbl">Collections</span>' + cols.filter(function(c){
+      return (byCode[c.code]||[]).length;
+    }).map(function(c){
+      return '<a class="jump" href="#c-'+c.code+'">'+esc(c.code)+'</a>';
+    }).join('<span aria-hidden="true" style="color:var(--ink-faint)">/</span>');
+
+    // sections
+    var html = "";
+    cols.forEach(function(c){
+      var items = byCode[c.code] || [];
+      if (!items.length) return;
+      html += '<section class="collection" id="c-'+c.code+'" data-code="'+c.code+'">'
+        + '<div class="col-head">'
+        +   '<span class="col-code">'+esc(c.code)+'</span>'
+        +   '<h2 class="col-name">'+esc(c.name)+'</h2>'
+        + '</div>'
+        + (c.blurb ? '<p class="col-blurb">'+esc(c.blurb)+'</p>' : '')
+        + '<ol class="entries">';
+      items.forEach(function(p, i){
+        var n = String(i+1).padStart(2,"0");
+        var shelf = c.code + "·" + n;
+        html += '<li class="entry" data-search="'+esc((p.title+" "+p.blurb+" "+c.name+" "+shelf).toLowerCase())+'">'
+          + '<a class="entry-link" href="'+esc(urlFor(p))+'">'
+          +   '<span class="mark">'+esc(shelf)+'<span class="no">No.'+n+'</span></span>'
+          +   '<span class="body">'
+          +     '<h3>'+esc(p.title)+'<span class="arrow" aria-hidden="true">↗</span></h3>'
+          +     '<p>'+esc(p.blurb)+'</p>'
+          +   '</span>'
+          +   '<span class="meta">'
+          +     '<span class="date">'+fmtDate(p.updated)+'</span>'
+          +   '</span>'
+          + '</a>'
+          + '<div style="padding:0 .2rem 1.1rem 5.9rem"><a class="source" href="'+esc(repoFor(p))+'">View source ↗</a></div>'
+          + '</li>';
+      });
+      html += '</ol></section>';
+    });
+    stacks.innerHTML = html;
+
+    footCount.textContent = projects.length + " entries · catalogue generated " + fmtDate(new Date().toISOString().slice(0,10));
+    filter();
+  }
+
+  function filter(){
+    var term = (q.value||"").trim().toLowerCase();
+    var entries = stacks.querySelectorAll(".entry");
+    var shown = 0;
+    entries.forEach(function(el){
+      var hit = !term || el.getAttribute("data-search").indexOf(term) !== -1;
+      el.hidden = !hit;
+      if (hit) shown++;
+    });
+    // hide empty sections
+    stacks.querySelectorAll(".collection").forEach(function(sec){
+      var any = sec.querySelectorAll(".entry:not([hidden])").length;
+      sec.hidden = !any;
+    });
+    noResults.hidden = shown !== 0;
+    resultCount.textContent = term
+      ? shown + " of " + entries.length + " shown"
+      : entries.length + " projects";
+  }
+
+  q.addEventListener("input", filter);
+
+  // ── Theme ──
+  var root = document.documentElement;
+  var toggle = document.getElementById("themeToggle");
+  var label = document.getElementById("themeLabel");
+  var STORE = "lib-theme";
+
+  function applyTheme(t){
+    root.setAttribute("data-theme", t);
+    label.textContent = t === "dark" ? "Dark" : "Light";
+    toggle.setAttribute("aria-pressed", t === "dark" ? "true" : "false");
+  }
+  function initTheme(){
+    var saved = null;
+    try { saved = localStorage.getItem(STORE); } catch(e){}
+    if (saved === "dark" || saved === "light"){ applyTheme(saved); return; }
+    var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    applyTheme(prefersDark ? "dark" : "light");
+  }
+  toggle.addEventListener("click", function(){
+    var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    applyTheme(next);
+    try { localStorage.setItem(STORE, next); } catch(e){}
+  });
+  initTheme();
+
+  // ── Load data ──
+  fetch("projects.json", {cache:"no-cache"})
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(build)
+    .catch(function(err){
+      stacks.innerHTML = '<p class="empty">The catalogue file could not be loaded ('
+        + esc(String(err.message||err)) + '). If you are viewing this locally, serve the '
+        + 'folder over HTTP (e.g. <code>python3 -m http.server</code>) rather than opening the file directly.</p>';
+      resultCount.textContent = "";
+    });
+})();
+</script>
+</body>
+</html>
