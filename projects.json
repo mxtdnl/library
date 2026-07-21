@@ -6,11 +6,31 @@
     "note": "Manual catalogue, seeded from the GitHub API. To add a project: copy an entry, set slug/title/blurb/collection/updated. url and repo are derived from the slug unless overridden."
   },
   "collections": [
-    { "code": "DEC", "name": "Decision & Crisis", "blurb": "Take a seat you can't delegate and steer under hard constraints." },
-    { "code": "FOR", "name": "Forecasting & Estimation", "blurb": "Reason under uncertainty — decompose, calibrate, and judge precision." },
-    { "code": "HAB", "name": "Habit & Behaviour", "blurb": "The mechanics of automaticity, friction, and reward." },
-    { "code": "JDG", "name": "Judgement & Leadership", "blurb": "Hold your stated values up against how you actually act." },
-    { "code": "PER", "name": "Personal & Utilities", "blurb": "Smaller tools built for a specific person or purpose." }
+    {
+      "code": "DEC",
+      "name": "Decision & Crisis",
+      "blurb": "Take a seat you can't delegate and steer under hard constraints."
+    },
+    {
+      "code": "FOR",
+      "name": "Forecasting & Estimation",
+      "blurb": "Reason under uncertainty — decompose, calibrate, and judge precision."
+    },
+    {
+      "code": "HAB",
+      "name": "Habit & Behaviour",
+      "blurb": "The mechanics of automaticity, friction, and reward."
+    },
+    {
+      "code": "JDG",
+      "name": "Judgement & Leadership",
+      "blurb": "Hold your stated values up against how you actually act."
+    },
+    {
+      "code": "PER",
+      "name": "Personal & Utilities",
+      "blurb": "Smaller tools built for a specific person or purpose."
+    }
   ],
   "projects": [
     {

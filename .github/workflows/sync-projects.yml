@@ -1,0 +1,67 @@
+name: Sync projects
+
+# Discovers new GitHub Pages repos and, when the catalogue changes, opens a pull
+# request adding them to the "New" inbox in projects.json. Nothing reaches the
+# live site until you review the PR and write a proper description.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # every Monday 06:00 UTC
+  workflow_dispatch:        # plus a manual "Run workflow" button
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-projects
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run the sync
+        id: sync
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/sync-projects.mjs
+
+      - name: Open or update the pull request
+        if: steps.sync.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          BRANCH="bot/sync-projects"
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH"
+          git add projects.json
+          git commit -m "Sync projects catalogue
+
+          Added: ${{ steps.sync.outputs.added_list || 'metadata only' }}"
+          git push --force-with-lease origin "$BRANCH"
+
+          if gh pr view "$BRANCH" --json state --jq .state 2>/dev/null | grep -q OPEN; then
+            echo "PR already open for $BRANCH — updated with a new commit."
+          else
+            gh pr create \
+              --base "${{ github.event.repository.default_branch }}" \
+              --head "$BRANCH" \
+              --title "Sync projects catalogue" \
+              --body "Automated update from \`scripts/sync-projects.mjs\`.
+
+          **Newly discovered:** ${{ steps.sync.outputs.added_list || '_none — metadata/date changes only_' }}
+
+          New repos land in the **New — awaiting a description** collection with a
+          placeholder blurb. Before merging: write a real one-sentence description
+          and move each into a proper collection. Anything flagged \`\"stale\": true\`
+          is a project whose Pages site has gone offline — fix or remove it."
+          fi

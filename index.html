@@ -328,7 +328,9 @@
   function build(data){
     DATA = data;
     var cols = data.collections;
-    var projects = data.projects.slice();
+    // Stale entries (repo/Pages no longer live) stay in projects.json flagged
+    // for the maintainer, but are not shown in the public catalogue.
+    var projects = data.projects.filter(function(p){ return !p.stale; });
 
     // group + order within collection (newest first)
     var byCode = {};
