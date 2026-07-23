@@ -25,18 +25,25 @@ You usually don't edit `projects.json` by hand for new repos. A GitHub Action
 the *Run workflow* button under the repo's **Actions** tab). It:
 
 1. Lists every public repo you own that has GitHub Pages enabled.
-2. Adds any it doesn't already know about to the **New — awaiting a description**
-   collection. A one-sentence blurb is drafted automatically by a GitHub-hosted
-   AI model (GitHub Models) that reads the repo's live page; if the model is
-   unavailable it falls back to the repo's GitHub description, then a plain TODO.
+2. For any repo it doesn't already know, a GitHub-hosted AI model (GitHub Models)
+   reads the repo's live page and drafts:
+   - a **one-sentence blurb**,
+   - the **best-fit collection** — or, if the project genuinely fits none, a
+     **proposal for a brand-new collection** (capped at one per run to stop the
+     taxonomy fragmenting), and
+   - a few cross-cutting **tags** (reusing the existing tag vocabulary where it can).
+
+   If the model is unavailable it falls back to the repo's GitHub description
+   (then a TODO), files the repo under **New — awaiting a description**, and adds
+   no tags.
 3. Refreshes each project's `updated` date, and flags any project whose Pages
-   site has gone offline with `"stale": true` (it is hidden from the live site
-   but kept in the file, never silently deleted).
+   site has gone offline with `"stale": true` (hidden from the live site but kept
+   in the file, never silently deleted).
 4. If anything changed, opens (or updates) a pull request.
 
 **Nothing reaches the live site until you merge that PR.** Your job on each PR is
-just to write a real one-sentence blurb for the new entries and move them out of
-`NEW` into a proper collection.
+to sanity-check the AI's blurb, collection, and tags — and any **proposed new
+category** especially, since that grows the taxonomy.
 
 > One-time setup: under **Settings → Actions → General → Workflow permissions**,
 > enable *Read and write permissions* and *Allow GitHub Actions to create and
@@ -64,6 +71,7 @@ Edit `projects.json` and add an entry to the `projects` array:
   "title": "My New Project",
   "blurb": "One sentence on what it is and what the visitor does.",
   "collection": "FOR",
+  "tags": ["forecasting", "classroom"],
   "updated": "2026-08-01"
 }
 ```
@@ -72,9 +80,23 @@ Edit `projects.json` and add an entry to the `projects` array:
   `https://mxtdnl.github.io/<slug>/` and the source link as
   `https://github.com/mxtdnl/<slug>/`.
   To override either (e.g. a custom domain), add `"url"` and/or `"repo"` fields.
-- `collection` — one of the `code` values defined in the `collections` array
-  (`DEC`, `FOR`, `HAB`, `JDG`, `PER`). Add a new collection object to create one.
+- `collection` — the project's **one** primary home; a `code` from the
+  `collections` array (`DEC`, `FOR`, `HAB`, `JDG`, `PER`). It drives the
+  shelf-mark and the section the project appears in. Add a new collection object
+  to create one.
+- `tags` — optional array of lowercase kebab-case labels for **cross-cutting**
+  themes. Unlike `collection`, a project can have several, and they power the
+  *Filter by tag* chips on the page. Reuse existing tags where you can (keeps the
+  filter tidy); new ones just appear automatically.
 - `updated` — `YYYY-MM-DD`; entries sort newest-first within their collection.
+
+### Collections vs tags
+
+A project lives in exactly **one collection** (its shelf) but can carry **many
+tags** (its themes). Collections are the deliberate, curated structure — the
+sync tool only adds one at a time and only when nothing fits. Tags are additive
+and cheap, so they can proliferate freely for discovery without cluttering the
+catalogue's structure.
 
 ## Local preview
 

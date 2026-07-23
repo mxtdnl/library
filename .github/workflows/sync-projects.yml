@@ -60,9 +60,12 @@ jobs:
               --body "Automated update from \`scripts/sync-projects.mjs\`.
 
           **Newly discovered:** ${{ steps.sync.outputs.added_list || '_none — metadata/date changes only_' }}
+          **Proposed new categories:** ${{ steps.sync.outputs.new_collections || '_none_' }}
 
-          New repos land in the **New — awaiting a description** collection with a
-          placeholder blurb. Before merging: write a real one-sentence description
-          and move each into a proper collection. Anything flagged \`\"stale\": true\`
+          Each new repo gets an AI-drafted one-sentence blurb, a best-fit collection
+          (or a proposed new one), and a few tags. Before merging: sanity-check the
+          blurb, collection, and tags — and any **proposed new category** especially,
+          since it changes the taxonomy. Anything the model was unsure about is filed
+          under **New — awaiting a description**. Anything flagged \`\"stale\": true\`
           is a project whose Pages site has gone offline — fix or remove it."
           fi

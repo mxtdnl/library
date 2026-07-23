@@ -3,7 +3,7 @@
     "owner": "mxtdnl",
     "pagesBase": "https://mxtdnl.github.io",
     "repoBase": "https://github.com/mxtdnl",
-    "note": "Manual catalogue, seeded from the GitHub API. To add a project: copy an entry, set slug/title/blurb/collection/updated. url and repo are derived from the slug unless overridden."
+    "note": "Manual catalogue, seeded from the GitHub API. Each project has one primary `collection` (drives the shelf-mark layout) plus optional cross-cutting `tags`. url and repo are derived from the slug unless overridden."
   },
   "collections": [
     {
@@ -38,6 +38,7 @@
       "title": "The Turnaround Board",
       "blurb": "Take over a failing 84-store retailer as its crisis chief executive and reach solvency across twelve weeks of unforgiving weekly trade-offs.",
       "collection": "DEC",
+      "tags": ["decision-making", "crisis-management", "business", "simulation"],
       "updated": "2026-07-21"
     },
     {
@@ -45,6 +46,7 @@
       "title": "Outbreak",
       "blurb": "Direct a city's response to a novel pathogen as Emergency Public Health Director, making binding weekly policy and budget decisions over twelve weeks.",
       "collection": "DEC",
+      "tags": ["crisis-management", "public-health", "resource-allocation", "simulation"],
       "updated": "2026-07-17"
     },
     {
@@ -52,6 +54,7 @@
       "title": "Founder's Dilemma",
       "blurb": "Negotiate three venture funding rounds and an exit, discovering how term sheets and the payout waterfall decide what you personally bank.",
       "collection": "DEC",
+      "tags": ["decision-making", "business", "negotiation"],
       "updated": "2026-07-17"
     },
     {
@@ -59,6 +62,7 @@
       "title": "PEP Simulation",
       "blurb": "Hold a fragile US–Iran ceasefire together through a chain of crisis decisions — built for the Hult Ignite lecture series.",
       "collection": "DEC",
+      "tags": ["decision-making", "crisis-management", "geopolitics", "classroom"],
       "updated": "2026-06-23"
     },
     {
@@ -66,6 +70,7 @@
       "title": "The Meridian Gazette",
       "blurb": "Take the editor's chair at a struggling regional daily and balance circulation, ethics, and a tighter-than-promised budget in daily calls.",
       "collection": "DEC",
+      "tags": ["decision-making", "media", "ethics", "simulation"],
       "updated": "2026-06-15"
     },
     {
@@ -73,6 +78,7 @@
       "title": "Forecasting Pedagogy Simulations",
       "blurb": "A hub of three self-contained classroom exercises — Fermi Forge, Belief Lab, and the Fox & Hedgehog Derby — with seeded, reproducible runs.",
       "collection": "FOR",
+      "tags": ["forecasting", "estimation", "classroom", "hub"],
       "updated": "2026-07-08"
     },
     {
@@ -80,6 +86,7 @@
       "title": "Fermi Forge",
       "blurb": "Learn Fermi estimation by decomposing impossible questions into tractable ones, from London's boiler engineers to Fermi's Trinity paper-drop.",
       "collection": "FOR",
+      "tags": ["forecasting", "estimation", "classroom"],
       "updated": "2026-07-08"
     },
     {
@@ -87,6 +94,7 @@
       "title": "Fox & Hedgehog Derby",
       "blurb": "Forecast twelve questions about a fictional region against Fox and Hedgehog bots, testing Tetlock's finding that cognitive style predicts accuracy.",
       "collection": "FOR",
+      "tags": ["forecasting", "cognitive-style", "classroom"],
       "updated": "2026-07-09"
     },
     {
@@ -94,6 +102,7 @@
       "title": "The Briefing Room",
       "blurb": "Carry analysts' probability estimates to the President and learn when numeric precision is real signal and when it is merely decoration.",
       "collection": "FOR",
+      "tags": ["forecasting", "probability", "decision-making", "communication"],
       "updated": "2026-07-07"
     },
     {
@@ -101,6 +110,7 @@
       "title": "Friction Wars",
       "blurb": "Engineer the path of least resistance: spend a friction budget so the good habit becomes the easy one, in a head-to-head design game.",
       "collection": "HAB",
+      "tags": ["habits", "behaviour-change", "game", "classroom"],
       "updated": "2026-07-16"
     },
     {
@@ -108,6 +118,7 @@
       "title": "Rituals & Rhythms",
       "blurb": "Trace how the body clock's master pacemaker and its hormonal cascades make behaviours feel automatic, through a guided circadian-biology scenario.",
       "collection": "HAB",
+      "tags": ["habits", "neuroscience", "circadian", "classroom"],
       "updated": "2026-07-16"
     },
     {
@@ -115,6 +126,7 @@
       "title": "Habit-Strength Accumulator",
       "blurb": "Watch automaticity build along a realistic asymptotic curve and see how long a new habit actually takes to plateau, anchored to Lally et al. (2010).",
       "collection": "HAB",
+      "tags": ["habits", "behaviour-change", "data-viz"],
       "updated": "2026-07-15"
     },
     {
@@ -122,6 +134,7 @@
       "title": "Demand Selection",
       "blurb": "A repeated free-choice task exploring how we drift toward familiar, lower-effort options over many small decisions.",
       "collection": "HAB",
+      "tags": ["habits", "psychology", "experiment"],
       "updated": "2026-07-15"
     },
     {
@@ -129,6 +142,7 @@
       "title": "Reward-Prediction-Error Visualiser",
       "blurb": "An interactive instrument showing how the dopamine surprise signal migrates from reward to predictive cue as learning takes hold.",
       "collection": "HAB",
+      "tags": ["neuroscience", "psychology", "learning", "data-viz"],
       "updated": "2026-07-22"
     },
     {
@@ -136,6 +150,7 @@
       "title": "The Leadership Mirror",
       "blurb": "A two-stage assessment testing whether the leadership values you state stay consistent with each other — and with how you act under pressure.",
       "collection": "JDG",
+      "tags": ["leadership", "self-assessment", "values"],
       "updated": "2026-07-14"
     },
     {
@@ -143,21 +158,24 @@
       "title": "The Leadership Mirror — Judgement Edition",
       "blurb": "Maps where your leadership beliefs sit across contested value trade-offs and how consistently you hold them. (A variant of The Leadership Mirror.)",
       "collection": "JDG",
+      "tags": ["leadership", "self-assessment", "judgement"],
       "updated": "2026-07-09"
-    },
-    {
-      "slug": "sarahs-gym-tracker",
-      "title": "Sarah's Gym Tracker",
-      "blurb": "A personal web app for logging and tracking gym workouts and progress over time.",
-      "collection": "PER",
-      "updated": "2026-06-14"
     },
     {
       "slug": "hidden-profile-paradigm",
       "title": "Hidden Profile Paradigm",
       "blurb": "Explore the pooling problem through an interactive exercise that simulates decision-making in a hidden profile scenario.",
       "collection": "JDG",
+      "tags": ["group-decision-making", "psychology", "classroom"],
       "updated": "2026-07-23"
+    },
+    {
+      "slug": "sarahs-gym-tracker",
+      "title": "Sarah's Gym Tracker",
+      "blurb": "A personal web app for logging and tracking gym workouts and progress over time.",
+      "collection": "PER",
+      "tags": ["fitness", "personal", "tool"],
+      "updated": "2026-06-14"
     }
   ]
 }

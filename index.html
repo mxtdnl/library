@@ -220,6 +220,39 @@
 
   .empty{ color:var(--ink-soft); font-style:italic; padding:2rem .2rem; }
 
+  /* ── Tags ─────────────────────────────────────────── */
+  .tagbar{
+    display:flex; flex-wrap:wrap; align-items:baseline; gap:.4rem .5rem;
+    padding:1.15rem 0 .2rem; border-top:1px solid var(--line); margin-top:1rem;
+  }
+  .tagbar .lbl{
+    font-family:ui-monospace, monospace; font-size:.68rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--ink-faint); margin-right:.3rem;
+  }
+  .tag{
+    font-family:ui-monospace, monospace; font-size:.7rem; letter-spacing:.03em;
+    color:var(--mark); background:transparent; border:1px solid var(--line-strong);
+    border-radius:999px; padding:.16rem .55rem; cursor:pointer; line-height:1.5;
+    transition:color .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .tag:hover{ color:var(--accent); border-color:var(--accent); }
+  .tag:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+  .tag[aria-pressed="true"]{ color:var(--surface); background:var(--accent); border-color:var(--accent); }
+  .tag .cnt{ opacity:.55; margin-left:.35rem; }
+  .clear{
+    font-family:ui-monospace, monospace; font-size:.68rem; letter-spacing:.06em;
+    color:var(--ink-faint); background:transparent; border:none; cursor:pointer;
+    text-decoration:underline; text-underline-offset:2px; padding:.16rem .2rem;
+  }
+  .clear:hover{ color:var(--accent); }
+  .clear:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+
+  .entry-foot{
+    display:flex; flex-wrap:wrap; align-items:center; gap:.4rem .55rem;
+    padding:.1rem .2rem 1.2rem 6.9rem;
+  }
+  .entry-foot .tag{ font-size:.66rem; padding:.1rem .5rem; }
+
   /* ── Footer ───────────────────────────────────────── */
   footer{
     margin-top:4rem; padding:2rem 0 3.5rem; border-top:2px solid var(--ink);
@@ -238,6 +271,7 @@
     .meta{ text-align:left; padding-top:.3rem; }
     .body p{ max-width:none; }
     .arrow{ opacity:1; }
+    .entry-foot{ padding-left:.2rem; }
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -278,11 +312,13 @@
       <nav class="contents" id="contents" aria-label="Collections"></nav>
       <span class="count" id="resultCount" role="status" aria-live="polite"></span>
     </div>
+
+    <div class="tagbar" id="tagbar" aria-label="Filter by tag"></div>
   </header>
 
   <main id="catalogue">
     <div id="stacks"></div>
-    <p class="empty" id="noResults" hidden>No entries match that search. Try a broader term, or clear the field.</p>
+    <p class="empty" id="noResults" hidden>No entries match those filters. Try a broader term, or clear the tag filters.</p>
   </main>
 
   <footer>
@@ -308,9 +344,11 @@
   var resultCount = document.getElementById("resultCount");
   var footCount = document.getElementById("foot-count");
   var noResults = document.getElementById("noResults");
+  var tagbar = document.getElementById("tagbar");
   var q = document.getElementById("q");
 
   var DATA = null;
+  var activeTags = [];   // tags currently filtered on (AND)
 
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
     return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];
@@ -324,6 +362,13 @@
 
   function urlFor(p){ return p.url || (PAGES + "/" + p.slug + "/"); }
   function repoFor(p){ return p.repo || (REPO + "/" + p.slug); }
+
+  function tagChip(tag, count){
+    return '<button type="button" class="tag" data-tag="'+esc(tag)+'" aria-pressed="false">'
+      + esc(tag)
+      + (count != null ? '<span class="cnt">'+count+'</span>' : '')
+      + '</button>';
+  }
 
   function build(data){
     DATA = data;
@@ -340,12 +385,24 @@
       byCode[code].sort(function(a,b){ return (b.updated||"").localeCompare(a.updated||""); });
     });
 
+    // tag frequency across the catalogue
+    var tagCount = {};
+    projects.forEach(function(p){ (p.tags||[]).forEach(function(t){ tagCount[t] = (tagCount[t]||0)+1; }); });
+    var tags = Object.keys(tagCount).sort(function(a,b){
+      return tagCount[b] - tagCount[a] || a.localeCompare(b);
+    });
+
     // contents nav
     contentsNav.innerHTML = '<span class="lbl">Collections</span>' + cols.filter(function(c){
       return (byCode[c.code]||[]).length;
     }).map(function(c){
       return '<a class="jump" href="#c-'+c.code+'">'+esc(c.code)+'</a>';
     }).join('<span aria-hidden="true" style="color:var(--ink-faint)">/</span>');
+
+    // tag filter bar
+    tagbar.innerHTML = '<span class="lbl">Filter by tag</span>'
+      + tags.map(function(t){ return tagChip(t, tagCount[t]); }).join("")
+      + '<button type="button" class="clear" id="clearTags" hidden>Clear filters</button>';
 
     // sections
     var html = "";
@@ -362,7 +419,10 @@
       items.forEach(function(p, i){
         var n = String(i+1).padStart(2,"0");
         var shelf = c.code + "·" + n;
-        html += '<li class="entry" data-search="'+esc((p.title+" "+p.blurb+" "+c.name+" "+shelf).toLowerCase())+'">'
+        var ptags = p.tags || [];
+        var searchStr = (p.title+" "+p.blurb+" "+c.name+" "+shelf+" "+ptags.join(" ")).toLowerCase();
+        var footChips = ptags.map(function(t){ return tagChip(t, null); }).join("");
+        html += '<li class="entry" data-search="'+esc(searchStr)+'" data-tags="'+esc(ptags.join(" "))+'">'
           + '<a class="entry-link" href="'+esc(urlFor(p))+'">'
           +   '<span class="mark">'+esc(shelf)+'<span class="no">No.'+n+'</span></span>'
           +   '<span class="body">'
@@ -373,15 +433,50 @@
           +     '<span class="date">'+fmtDate(p.updated)+'</span>'
           +   '</span>'
           + '</a>'
-          + '<div style="padding:0 .2rem 1.1rem 5.9rem"><a class="source" href="'+esc(repoFor(p))+'">View source ↗</a></div>'
+          + '<div class="entry-foot">' + footChips
+          +   '<a class="source" href="'+esc(repoFor(p))+'">View source ↗</a>'
+          + '</div>'
           + '</li>';
       });
       html += '</ol></section>';
     });
     stacks.innerHTML = html;
 
+    // wire every tag button (bar + inline) to toggle its filter
+    document.querySelectorAll(".tag").forEach(function(btn){
+      btn.addEventListener("click", function(){ toggleTag(btn.getAttribute("data-tag")); });
+    });
+    var clearBtn = document.getElementById("clearTags");
+    if (clearBtn) clearBtn.addEventListener("click", clearTags);
+
     footCount.textContent = projects.length + " entries · catalogue generated " + fmtDate(new Date().toISOString().slice(0,10));
     filter();
+  }
+
+  function toggleTag(tag){
+    var i = activeTags.indexOf(tag);
+    if (i === -1) activeTags.push(tag); else activeTags.splice(i, 1);
+    // reflect state on every button for this tag (bar + inline)
+    document.querySelectorAll('.tag[data-tag="'+cssEsc(tag)+'"]').forEach(function(btn){
+      btn.setAttribute("aria-pressed", i === -1 ? "true" : "false");
+    });
+    var clearBtn = document.getElementById("clearTags");
+    if (clearBtn) clearBtn.hidden = activeTags.length === 0;
+    filter();
+  }
+
+  function clearTags(){
+    activeTags = [];
+    document.querySelectorAll('.tag[aria-pressed="true"]').forEach(function(btn){
+      btn.setAttribute("aria-pressed", "false");
+    });
+    var clearBtn = document.getElementById("clearTags");
+    if (clearBtn) clearBtn.hidden = true;
+    filter();
+  }
+
+  function cssEsc(s){
+    return (window.CSS && CSS.escape) ? CSS.escape(s) : String(s).replace(/["\\\]]/g, "\\$&");
   }
 
   function filter(){
@@ -389,7 +484,10 @@
     var entries = stacks.querySelectorAll(".entry");
     var shown = 0;
     entries.forEach(function(el){
-      var hit = !term || el.getAttribute("data-search").indexOf(term) !== -1;
+      var textHit = !term || el.getAttribute("data-search").indexOf(term) !== -1;
+      var entryTags = el.getAttribute("data-tags").split(" ");
+      var tagHit = activeTags.every(function(t){ return entryTags.indexOf(t) !== -1; });
+      var hit = textHit && tagHit;
       el.hidden = !hit;
       if (hit) shown++;
     });
@@ -399,7 +497,8 @@
       sec.hidden = !any;
     });
     noResults.hidden = shown !== 0;
-    resultCount.textContent = term
+    var filtered = term || activeTags.length;
+    resultCount.textContent = filtered
       ? shown + " of " + entries.length + " shown"
       : entries.length + " projects";
   }
