@@ -26,7 +26,9 @@ the *Run workflow* button under the repo's **Actions** tab). It:
 
 1. Lists every public repo you own that has GitHub Pages enabled.
 2. Adds any it doesn't already know about to the **New — awaiting a description**
-   collection, using the repo's GitHub description as a placeholder blurb.
+   collection. A one-sentence blurb is drafted automatically by a GitHub-hosted
+   AI model (GitHub Models) that reads the repo's live page; if the model is
+   unavailable it falls back to the repo's GitHub description, then a plain TODO.
 3. Refreshes each project's `updated` date, and flags any project whose Pages
    site has gone offline with `"stale": true` (it is hidden from the live site
    but kept in the file, never silently deleted).

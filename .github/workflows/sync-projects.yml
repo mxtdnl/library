@@ -12,6 +12,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  models: read          # lets the sync tool draft blurbs via GitHub Models
 
 concurrency:
   group: sync-projects
