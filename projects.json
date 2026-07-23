@@ -30,11 +30,6 @@
       "code": "PER",
       "name": "Personal & Utilities",
       "blurb": "Smaller tools built for a specific person or purpose."
-    },
-    {
-      "code": "NEW",
-      "name": "New — awaiting a description",
-      "blurb": "Freshly discovered projects. Review each AI-drafted description, then move it into a collection above."
     }
   ],
   "projects": [
@@ -161,7 +156,7 @@
       "slug": "hidden-profile-paradigm",
       "title": "Hidden Profile Paradigm",
       "blurb": "Explore the pooling problem through an interactive exercise that simulates decision-making in a hidden profile scenario.",
-      "collection": "NEW",
+      "collection": "JDG",
       "updated": "2026-07-23"
     }
   ]
