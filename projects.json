@@ -30,6 +30,11 @@
       "code": "PER",
       "name": "Personal & Utilities",
       "blurb": "Smaller tools built for a specific person or purpose."
+    },
+    {
+      "code": "NEW",
+      "name": "New — awaiting a description",
+      "blurb": "Freshly discovered projects. Review each AI-drafted description, then move it into a collection above."
     }
   ],
   "projects": [
@@ -129,7 +134,7 @@
       "title": "Reward-Prediction-Error Visualiser",
       "blurb": "An interactive instrument showing how the dopamine surprise signal migrates from reward to predictive cue as learning takes hold.",
       "collection": "HAB",
-      "updated": "2026-07-14"
+      "updated": "2026-07-22"
     },
     {
       "slug": "leadership-mirror",
@@ -151,6 +156,13 @@
       "blurb": "A personal web app for logging and tracking gym workouts and progress over time.",
       "collection": "PER",
       "updated": "2026-06-14"
+    },
+    {
+      "slug": "hidden-profile-paradigm",
+      "title": "Hidden Profile Paradigm",
+      "blurb": "Explore the pooling problem through an interactive exercise that simulates decision-making in a hidden profile scenario.",
+      "collection": "NEW",
+      "updated": "2026-07-23"
     }
   ]
 }
