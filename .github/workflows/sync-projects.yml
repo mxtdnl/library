@@ -6,7 +6,7 @@ name: Sync projects
 
 on:
   schedule:
-    - cron: "0 6 * * 1"   # every Monday 06:00 UTC
+    - cron: "0 6 * * 2,5"   # Tuesdays and Fridays, 06:00 UTC
   workflow_dispatch:        # plus a manual "Run workflow" button
 
 permissions:
