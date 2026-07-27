@@ -48,7 +48,11 @@ jobs:
           git commit -m "Sync projects catalogue
 
           Added: ${{ steps.sync.outputs.added_list || 'metadata only' }}"
-          git push --force-with-lease origin "$BRANCH"
+          # bot/sync-projects is a throwaway branch this workflow fully owns and
+          # rebuilds from the default branch each run, so a plain force is correct.
+          # (--force-with-lease needs a remote-tracking ref the shallow checkout
+          # doesn't have, and rejects with "stale info".)
+          git push --force origin "$BRANCH"
 
           if gh pr view "$BRANCH" --json state --jq .state 2>/dev/null | grep -q OPEN; then
             echo "PR already open for $BRANCH — updated with a new commit."
