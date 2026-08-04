@@ -30,6 +30,11 @@
       "code": "PER",
       "name": "Personal & Utilities",
       "blurb": "Smaller tools built for a specific person or purpose."
+    },
+    {
+      "code": "NEW",
+      "name": "New — awaiting a description",
+      "blurb": "Freshly discovered projects. Review each AI-drafted entry, then move it into a collection above."
     }
   ],
   "projects": [
@@ -57,7 +62,7 @@
         "resource-allocation",
         "simulation"
       ],
-      "updated": "2026-07-17"
+      "updated": "2026-07-31"
     },
     {
       "slug": "founders-dilemma",
@@ -244,7 +249,7 @@
         "psychology",
         "classroom"
       ],
-      "updated": "2026-07-26"
+      "updated": "2026-07-27"
     },
     {
       "slug": "sarahs-gym-tracker",
@@ -269,7 +274,7 @@
         "communication",
         "behaviour-change"
       ],
-      "updated": "2026-07-26"
+      "updated": "2026-07-27"
     },
     {
       "slug": "course-planner",
@@ -283,6 +288,41 @@
         "learning"
       ],
       "updated": "2026-07-26"
+    },
+    {
+      "slug": "the-ledger",
+      "title": "The Ledger",
+      "blurb": "TODO — add a one-sentence description.",
+      "collection": "NEW",
+      "updated": "2026-08-03"
+    },
+    {
+      "slug": "intervention-point",
+      "title": "Intervention Point",
+      "blurb": "TODO — add a one-sentence description.",
+      "collection": "NEW",
+      "updated": "2026-08-03"
+    },
+    {
+      "slug": "groupthink",
+      "title": "Groupthink",
+      "blurb": "TODO — add a one-sentence description.",
+      "collection": "NEW",
+      "updated": "2026-07-29"
+    },
+    {
+      "slug": "killswitch",
+      "title": "Killswitch",
+      "blurb": "TODO — add a one-sentence description.",
+      "collection": "NEW",
+      "updated": "2026-07-29"
+    },
+    {
+      "slug": "croupier",
+      "title": "Croupier",
+      "blurb": "TODO — add a one-sentence description.",
+      "collection": "NEW",
+      "updated": "2026-07-29"
     }
   ]
 }
