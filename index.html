@@ -204,7 +204,11 @@
   .entry-link:hover h3, .entry-link:focus-visible h3{ background-size:100% 1.5px; }
   .arrow{ color:var(--accent); font-family:ui-monospace,monospace; margin-left:.4rem; opacity:0; transition:opacity .18s ease; }
   .entry-link:hover .arrow, .entry-link:focus-visible .arrow{ opacity:1; }
-  .body p{ margin:.5rem 0 0; color:var(--ink-soft); max-width:52ch; font-size:1.02rem; }
+  .body .subtitle{
+    margin:.2rem 0 0; font-family:"Newsreader", Georgia, serif; font-style:italic;
+    font-size:.92rem; color:var(--ink-faint); max-width:52ch;
+  }
+  .body p.blurb{ margin:.5rem 0 0; color:var(--ink-soft); max-width:52ch; font-size:1.02rem; }
 
   .meta{ text-align:right; padding-top:.4rem; white-space:nowrap; }
   .meta .date{
@@ -427,7 +431,8 @@
           +   '<span class="mark">'+esc(shelf)+'<span class="no">No.'+n+'</span></span>'
           +   '<span class="body">'
           +     '<h3>'+esc(p.title)+'<span class="arrow" aria-hidden="true">↗</span></h3>'
-          +     '<p>'+esc(p.blurb)+'</p>'
+          +     (p.subtitle ? '<p class="subtitle">'+esc(p.subtitle)+'</p>' : '')
+          +     '<p class="blurb">'+esc(p.blurb)+'</p>'
           +   '</span>'
           +   '<span class="meta">'
           +     '<span class="date">'+fmtDate(p.updated)+'</span>'

@@ -30,11 +30,6 @@
       "code": "PER",
       "name": "Personal & Utilities",
       "blurb": "Smaller tools built for a specific person or purpose."
-    },
-    {
-      "code": "NEW",
-      "name": "New — awaiting a description",
-      "blurb": "Freshly discovered projects. Review each AI-drafted entry, then move it into a collection above."
     }
   ],
   "projects": [
@@ -266,62 +261,93 @@
     {
       "slug": "psych-safety",
       "title": "Psych Safety",
-      "blurb": "Explore psychological safety through an interactive teaching tool based on McKinsey's findings and Amy Edmondson's research.",
+      "subtitle": "The Sequence — climate first, challenge second",
+      "blurb": "Lead a team over eight rounds and learn why psychological safety must be built before you stretch people — climate first, challenge second.",
       "collection": "JDG",
       "tags": [
-        "psychology",
         "leadership",
-        "communication",
-        "behaviour-change"
+        "psychology",
+        "classroom",
+        "simulation"
       ],
       "updated": "2026-07-27"
     },
     {
       "slug": "course-planner",
       "title": "Course Planner",
-      "blurb": "Track and manage course builds effectively to enhance educational outcomes.",
+      "subtitle": "Course Build Tracker",
+      "blurb": "A personal tool for tracking course builds from planning through to completion.",
       "collection": "PER",
       "tags": [
         "education",
         "personal",
-        "tool",
-        "learning"
+        "tool"
       ],
       "updated": "2026-07-26"
     },
     {
       "slug": "the-ledger",
       "title": "The Ledger",
-      "blurb": "TODO — add a one-sentence description.",
-      "collection": "NEW",
+      "subtitle": "A day of fourteen decisions",
+      "blurb": "Spend a simulated day making fourteen choices that each drain or restore your reserves, learning how planning and rules protect willpower.",
+      "collection": "HAB",
+      "tags": [
+        "psychology",
+        "self-regulation",
+        "decision-making"
+      ],
       "updated": "2026-08-03"
     },
     {
       "slug": "intervention-point",
       "title": "Intervention Point",
-      "blurb": "TODO — add a one-sentence description.",
-      "collection": "NEW",
+      "subtitle": "When you regulate decides what regulating costs",
+      "blurb": "Regulate an emotional reaction at different stages of a tense meeting, and discover how the timing of your intervention changes what it costs.",
+      "collection": "JDG",
+      "tags": [
+        "psychology",
+        "emotion-regulation",
+        "self-assessment"
+      ],
       "updated": "2026-08-03"
     },
     {
       "slug": "groupthink",
       "title": "Groupthink",
-      "blurb": "TODO — add a one-sentence description.",
-      "collection": "NEW",
+      "subtitle": "Two rooms — how groups get things wrong together",
+      "blurb": "Play two short simulations of groups failing together — a safety meeting that ignores the facts it holds, and an Asch-style conformity test.",
+      "collection": "JDG",
+      "tags": [
+        "group-decision-making",
+        "psychology",
+        "classroom"
+      ],
       "updated": "2026-07-29"
     },
     {
       "slug": "killswitch",
       "title": "Killswitch",
-      "blurb": "TODO — add a one-sentence description.",
-      "collection": "NEW",
+      "subtitle": "Kill Criteria — a decision simulation",
+      "blurb": "Manage three early-stage projects over twelve weeks and decide when to kill each, reading noisy weekly signals against the kill criteria you set upfront.",
+      "collection": "DEC",
+      "tags": [
+        "decision-making",
+        "resource-allocation",
+        "uncertainty"
+      ],
       "updated": "2026-07-29"
     },
     {
       "slug": "croupier",
       "title": "Croupier",
-      "blurb": "TODO — add a one-sentence description.",
-      "collection": "NEW",
+      "subtitle": "Outcome quality vs decision quality",
+      "blurb": "Rate decisions, then watch each play out across ten thousand parallel worlds — separating decision quality from luck and measuring your outcome bias.",
+      "collection": "FOR",
+      "tags": [
+        "probability",
+        "decision-making",
+        "cognitive-bias"
+      ],
       "updated": "2026-07-29"
     }
   ]
