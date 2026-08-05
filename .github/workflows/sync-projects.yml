@@ -12,7 +12,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  models: read          # lets the sync tool draft blurbs via GitHub Models
 
 concurrency:
   group: sync-projects
@@ -32,6 +31,10 @@ jobs:
         id: sync
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GitHub Models (the old in-workflow drafter) has been retired, so skip
+          # the AI call here. New repos land as TODO placeholders in the NEW inbox;
+          # the "Draft blurbs" Routine (Claude/Sonnet, ~4h later) fills them in.
+          SYNC_NO_AI: "1"
         run: node scripts/sync-projects.mjs
 
       - name: Open or update the pull request
@@ -64,12 +67,12 @@ jobs:
               --body "Automated update from \`scripts/sync-projects.mjs\`.
 
           **Newly discovered:** ${{ steps.sync.outputs.added_list || '_none — metadata/date changes only_' }}
-          **Proposed new categories:** ${{ steps.sync.outputs.new_collections || '_none_' }}
 
-          Each new repo gets an AI-drafted one-sentence blurb, a best-fit collection
-          (or a proposed new one), and a few tags. Before merging: sanity-check the
-          blurb, collection, and tags — and any **proposed new category** especially,
-          since it changes the taxonomy. Anything the model was unsure about is filed
-          under **New — awaiting a description**. Anything flagged \`\"stale\": true\`
-          is a project whose Pages site has gone offline — fix or remove it."
+          New repos are added to the **New — awaiting a description** collection as
+          \`TODO\` placeholders. The **Draft blurbs** Routine (Claude/Sonnet) runs a
+          few hours after this workflow, reads each new repo's page, and fills in a
+          real blurb, collection, tags and subtitle on this same PR. If you're
+          reading this before that has happened, the entries may still say \`TODO\`.
+          Anything flagged \`\"stale\": true\` is a project whose Pages site has gone
+          offline — fix or remove it."
           fi

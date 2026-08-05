@@ -271,7 +271,7 @@ function merge(data, repos, drafts) {
 }
 
 function stableStringify(data) {
-  const order = ["slug", "title", "blurb", "collection", "tags", "updated", "url", "repo", "stale"];
+  const order = ["slug", "title", "subtitle", "blurb", "collection", "tags", "updated", "url", "repo", "stale"];
   const ordered = {
     ...data,
     projects: data.projects.map((p) => {
