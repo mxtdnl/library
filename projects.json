@@ -30,6 +30,11 @@
       "code": "PER",
       "name": "Personal & Utilities",
       "blurb": "Smaller tools built for a specific person or purpose."
+    },
+    {
+      "code": "NEW",
+      "name": "New — awaiting a description",
+      "blurb": "Freshly discovered projects. Review each AI-drafted entry, then move it into a collection above."
     }
   ],
   "projects": [
@@ -349,6 +354,48 @@
         "cognitive-bias"
       ],
       "updated": "2026-07-29"
+    },
+    {
+      "slug": "sdc-virtual-resource-library",
+      "title": "Sdc Virtual Resource Library",
+      "blurb": "TODO — add a one-sentence description.",
+      "collection": "NEW",
+      "updated": "2026-09-11"
+    },
+    {
+      "slug": "third-places",
+      "title": "Third Places",
+      "blurb": "TODO — add a one-sentence description.",
+      "collection": "NEW",
+      "updated": "2026-09-11"
+    },
+    {
+      "slug": "coaching-1-workshop-1",
+      "title": "Coaching 1 Workshop 1",
+      "blurb": "TODO — add a one-sentence description.",
+      "collection": "NEW",
+      "updated": "2026-09-07"
+    },
+    {
+      "slug": "list-view-filter-maker",
+      "title": "List View Filter Maker",
+      "blurb": "TODO — add a one-sentence description.",
+      "collection": "NEW",
+      "updated": "2026-09-03"
+    },
+    {
+      "slug": "coach-scheduler",
+      "title": "Coach Scheduler",
+      "blurb": "TODO — add a one-sentence description.",
+      "collection": "NEW",
+      "updated": "2026-08-19"
+    },
+    {
+      "slug": "sports-day-shop",
+      "title": "Sports Day Shop",
+      "blurb": "TODO — add a one-sentence description.",
+      "collection": "NEW",
+      "updated": "2026-08-12"
     }
   ]
 }
