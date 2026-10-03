@@ -27,6 +27,21 @@
       "blurb": "Hold your stated values up against how you actually act."
     },
     {
+      "code": "COA",
+      "name": "Coaching & Development",
+      "blurb": "Exercises and workshops for coaching undergraduate students towards their goals."
+    },
+    {
+      "code": "TCH",
+      "name": "Teaching & Courses",
+      "blurb": "Activities and projection decks built for specific taught courses and sessions."
+    },
+    {
+      "code": "ANL",
+      "name": "Analysis & Research",
+      "blurb": "Instruments for describing how people and organisations actually work."
+    },
+    {
       "code": "PER",
       "name": "Personal & Utilities",
       "blurb": "Smaller tools built for a specific person or purpose."
@@ -349,6 +364,130 @@
         "cognitive-bias"
       ],
       "updated": "2026-07-29"
+    },
+    {
+      "slug": "frontier",
+      "title": "Frontier",
+      "subtitle": "A facilitated team business simulation",
+      "blurb": "Run a rival AI company with your team across timed quarterly rounds, deciding on phones while the facilitator drives a projector screen.",
+      "collection": "DEC",
+      "tags": [
+        "business",
+        "simulation",
+        "classroom",
+        "teams"
+      ],
+      "updated": "2026-10-02"
+    },
+    {
+      "slug": "third-places",
+      "title": "Third Places",
+      "subtitle": "Social Phenomena Challenge, BSc PEP",
+      "blurb": "A hub of classroom activities on Oldenburg's third places, from a characteristics decoder to a field-visit planner and an evidence adjudication bench.",
+      "collection": "TCH",
+      "tags": [
+        "classroom",
+        "hub",
+        "social-science",
+        "simulation"
+      ],
+      "updated": "2026-10-01"
+    },
+    {
+      "slug": "slides",
+      "title": "Lecture Slides",
+      "subtitle": "Projection decks for courses, workshops and talks",
+      "blurb": "Self-contained projection decks with built-in room activities: leading and lagging indicators, telegraphing direction to students, and an introduction to the PEP degree.",
+      "collection": "TCH",
+      "tags": [
+        "slides",
+        "classroom",
+        "coaching",
+        "hub"
+      ],
+      "updated": "2026-09-29"
+    },
+    {
+      "slug": "network",
+      "title": "Graticule",
+      "subtitle": "Organisational network analysis in the browser",
+      "blurb": "Map who works with whom in a team of 5 to 250 people, from roster surveys to network metrics, insights and reports.",
+      "collection": "ANL",
+      "tags": [
+        "network-analysis",
+        "organisations",
+        "data-viz",
+        "tool"
+      ],
+      "updated": "2026-09-29"
+    },
+    {
+      "slug": "coaching-1",
+      "title": "Coaching 1",
+      "subtitle": "Workshop materials",
+      "blurb": "Goal-setting workshop materials with a leading and lagging indicators deck and Signal Tower, a simulation of pursuing a goal through fog.",
+      "collection": "COA",
+      "tags": [
+        "coaching",
+        "goals",
+        "classroom",
+        "simulation"
+      ],
+      "updated": "2026-09-28"
+    },
+    {
+      "slug": "sdc-virtual-resource-library",
+      "title": "SDC Virtual Resource Library",
+      "subtitle": "Interactive coaching exercises",
+      "blurb": "Work through coaching exercises, from satisfaction wheels and card sorts to pairwise rankings, each ending in a summary to print or save.",
+      "collection": "COA",
+      "tags": [
+        "coaching",
+        "self-assessment",
+        "goals",
+        "wellbeing"
+      ],
+      "updated": "2026-09-16"
+    },
+    {
+      "slug": "list-view-filter-maker",
+      "title": "List View Filter Maker",
+      "subtitle": "Student names to a myStudents filter",
+      "blurb": "Paste a column of student full names from Excel and get one separated line ready for a myStudents list-view filter.",
+      "collection": "PER",
+      "tags": [
+        "coaching",
+        "admin",
+        "tool"
+      ],
+      "updated": "2026-09-03"
+    },
+    {
+      "slug": "coach-scheduler",
+      "title": "Term Scheduler",
+      "subtitle": "A term of coaching meetings, planned",
+      "blurb": "Turn class timetables, coach availability and student lists into a term of clash-free coaching meetings, exported as spreadsheets and calendar files.",
+      "collection": "PER",
+      "tags": [
+        "coaching",
+        "scheduling",
+        "admin",
+        "tool"
+      ],
+      "updated": "2026-08-19"
+    },
+    {
+      "slug": "sports-day-shop",
+      "title": "Materials Stores",
+      "subtitle": "The Suspended City · Bridge Build",
+      "blurb": "Run the points-based materials shop for a team bridge-building challenge, with requisitions, team balances, adjustments and a transaction ledger.",
+      "collection": "PER",
+      "tags": [
+        "classroom",
+        "team-challenge",
+        "tool"
+      ],
+      "updated": "2026-08-12"
     }
   ]
 }
