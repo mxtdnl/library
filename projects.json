@@ -45,6 +45,11 @@
       "code": "PER",
       "name": "Personal & Utilities",
       "blurb": "Smaller tools built for a specific person or purpose."
+    },
+    {
+      "code": "NEW",
+      "name": "New — awaiting a description",
+      "blurb": "Freshly discovered projects. Review each AI-drafted entry, then move it into a collection above."
     }
   ],
   "projects": [
@@ -173,7 +178,7 @@
         "game",
         "classroom"
       ],
-      "updated": "2026-07-16"
+      "updated": "2026-10-09"
     },
     {
       "slug": "rituals-and-rhythms",
@@ -377,7 +382,7 @@
         "classroom",
         "teams"
       ],
-      "updated": "2026-10-02"
+      "updated": "2026-10-09"
     },
     {
       "slug": "third-places",
@@ -391,7 +396,7 @@
         "social-science",
         "simulation"
       ],
-      "updated": "2026-10-01"
+      "updated": "2026-10-07"
     },
     {
       "slug": "slides",
@@ -405,7 +410,7 @@
         "coaching",
         "hub"
       ],
-      "updated": "2026-09-29"
+      "updated": "2026-10-06"
     },
     {
       "slug": "network",
@@ -419,7 +424,7 @@
         "data-viz",
         "tool"
       ],
-      "updated": "2026-09-29"
+      "updated": "2026-10-05"
     },
     {
       "slug": "coaching-1",
@@ -433,7 +438,7 @@
         "classroom",
         "simulation"
       ],
-      "updated": "2026-09-28"
+      "updated": "2026-10-08"
     },
     {
       "slug": "sdc-virtual-resource-library",
@@ -488,6 +493,13 @@
         "tool"
       ],
       "updated": "2026-08-12"
+    },
+    {
+      "slug": "coaching-1-workshop-1",
+      "title": "Coaching 1 Workshop 1",
+      "blurb": "TODO — add a one-sentence description.",
+      "collection": "NEW",
+      "updated": "2026-09-28"
     }
   ]
 }
